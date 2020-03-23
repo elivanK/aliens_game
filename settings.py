@@ -11,3 +11,9 @@ class Settings():
         # Ship settings
         # When ship moves, we adjust its position by 1.5 Pixels 
         self.ship_speed_factor = 1.5
+        
+        # Bullet settings 
+        self.bullet_speed_factor = 1
+        self.bullet_width = 3
+        self.bullet_height = 15
+        self.bullet_color = 60, 60, 60
