@@ -6,6 +6,7 @@ class Bullet(Sprite):
     # Create to manage bullets fired from the ship
     def __init__(self, ai_settings, screen, ship):
         # Create a bullet object at the ship's current position
+        # We call super to inherit properly from sprite
         super(Bullet, self).__init__()
         self.screen = screen 
          
@@ -20,3 +21,15 @@ class Bullet(Sprite):
         
         self.color = ai_settings.bullet_color
         self.speed_factor = ai_setting.bullet_speed_factor
+   
+   # The method the manage the bullet's position
+    def update(self):
+        # Move the bullet up the screen
+        # Update the decimal position of the bullet
+        self.y -= self.speed_factor
+        # Update the rect position
+        self.rect.y = self.y
+        
+    def draw_bullet(self):
+        # Draw the bullet to the screen 
+        pygame.draw.rect(self.screen, self.color, self.rect)
