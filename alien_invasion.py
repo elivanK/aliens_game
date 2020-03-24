@@ -22,17 +22,10 @@ def run_game():
     while True:
         gf.check_events(ai_settings, screen, ship, bullets)
         ship.update()
-        bullets.update()
-        
-        # Ged rid of bullets that have disappeared
-        # Don't remove items from a list of group within a for loop but a copy of it is fine
-        for bullet in bullets.copy():
-            # Check if the bullet has disappered of the stop of the screen
-            if bullet.rect.bottom <= 0:
-                bullets.remove(bullet)
+        gf.update_bullets(bullets)
+        # bullets.update()        
         # Show how many bullets currenty exist in the game and verify they're deleted        
-        print(len(bullets))
-        
+        # print(len(bullets))        
         gf.update_screen(ai_settings, screen, ship, bullets)
         
 

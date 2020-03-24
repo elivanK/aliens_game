@@ -17,3 +17,5 @@ class Settings():
         self.bullet_width = 2
         self.bullet_height = 10
         self.bullet_color = 60, 60, 60
+        # Store the number of allowed bullets 
+        self.bullets_allowed = 10
