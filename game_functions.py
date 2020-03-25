@@ -112,3 +112,8 @@ def get_number_rows(ai_settings, ship_height, alien_height):
     available_space_y = (ai_settings.screen_height - (3 * alien_height) - ship_height)
     number_rows = int(available_space_y / (2 * alien_height))
     return number_rows
+
+# We use this method on th aliens group, which automatically call each alien's update method
+def update_aliens(aliens):
+    # Update the position of all aliens in the fleet
+    aliens.update()

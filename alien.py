@@ -26,3 +26,12 @@ class Alien(Sprite):
     def blitme(self):
         # Draw the alien at its current location
         self.screen.blit(self.image, self.rect)
+    
+    # Each time we update the aline position
+    # We move it to the right by the amount stored in alien_speed_factor    
+    def update(self):
+        # Move the alien right
+        # With self.x we track the alien's exact position
+        # and with that value to update position of alien's rect
+        self.x += self.ai_settings.alien_speed_factor
+        self.rect.x = self.x

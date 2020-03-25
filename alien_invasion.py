@@ -23,14 +23,16 @@ def run_game():
     # Create the fleet of aliens
     gf.create_fleet(ai_settings, screen, ship, aliens)
     
-    # Start the main loop for the game
+    # Start the main loop for the game and call to update the ship, bullets and 
+    # position of each alien
     while True:
         gf.check_events(ai_settings, screen, ship, bullets)
         ship.update()
         gf.update_bullets(bullets)
         # bullets.update()        
         # Show how many bullets currenty exist in the game and verify they're deleted        
-        # print(len(bullets))        
+        # print(len(bullets)) 
+        gf.update_aliens(aliens)       
         gf.update_screen(ai_settings, screen, ship, aliens, bullets)
         
 
