@@ -18,7 +18,7 @@ class Settings():
         self.bullet_height = 10
         self.bullet_color = 60, 60, 60
         # Store the number of allowed bullets 
-        self.bullets_allowed = 10
+        self.bullets_allowed = 100
         
         # Alien settings
         self.alien_speed_factor = 1
