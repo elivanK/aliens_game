@@ -27,11 +27,20 @@ class Alien(Sprite):
         # Draw the alien at its current location
         self.screen.blit(self.image, self.rect)
     
-    # Each time we update the aline position
+    # Check whether an alien is at either edge
+    def check_edges(self):
+        # Return True if alien is at edge of screen
+        screen_rect = self.screen.get_rect()
+        if self.rect.right >= screen_rect.right:
+            return True
+        elif self.rect.left <= 0:
+            return True
+        
+    # Each time we update the alien position
     # We move it to the right by the amount stored in alien_speed_factor    
     def update(self):
-        # Move the alien right
+        # Move the alien right or left
         # With self.x we track the alien's exact position
         # and with that value to update position of alien's rect
-        self.x += self.ai_settings.alien_speed_factor
+        self.x += (self.ai_settings.alien_speed_factor * self.ai_settings.fleet_direction)
         self.rect.x = self.x

@@ -22,3 +22,8 @@ class Settings():
         
         # Alien settings
         self.alien_speed_factor = 1
+        # Creating settings for fleet direction
+        # How quickly the fleet drops down the screen each time and aline reaches either edge
+        self.fleet_drop_speed = 10
+        # fleet_direction of 1 represnets right and -1 left
+        self.fleet_direction = 1

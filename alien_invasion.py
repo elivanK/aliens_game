@@ -32,7 +32,7 @@ def run_game():
         # bullets.update()        
         # Show how many bullets currenty exist in the game and verify they're deleted        
         # print(len(bullets)) 
-        gf.update_aliens(aliens)       
+        gf.update_aliens(ai_settings, aliens)       
         gf.update_screen(ai_settings, screen, ship, aliens, bullets)
         
 
