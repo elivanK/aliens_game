@@ -9,7 +9,7 @@ class GameStats():
     
         # Start Alien Invasion in an active state to end the game when player runs
         # out of ships 
-        self.game_active = True
+        self.game_active = False 
         
         
     def reset_stats(self):
