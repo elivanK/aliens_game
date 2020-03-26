@@ -60,18 +60,30 @@ def update_screen(ai_settings, screen, ship, aliens, bullets):
     # Make the most recently drawn screen visible
     pygame.display.flip()
     
-def update_bullets(aliens, bullets):
+def update_bullets(ai_settings, screen, ship, aliens, bullets):
     # Update position of bullets and get rid of old bullets
     # Update bullet positions
     bullets.update()
-    # Check for any bullets that have hit aliens
-    # If so, get rid of the bullet and the alien
-    collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
     
     # Get rid of bullets that have disappeared
     for bullet in bullets.copy():
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
+
+    check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets)
+    
+def check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets):
+    # Respond to bullet-alien collisions
+    # Remove any bullets and aliens that have collided
+    collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
+    
+    # Check if the group aliens is empty
+    if len(aliens) == 0:
+        # Destroy existing bullets if the aliens group is empty and create a new fleet
+        bullets.empty()
+        create_fleet(ai_settings, screen, ship, aliens)
+    
+    
             
 def get_number_aliens_x(ai_settings, alien_width):
     # Determine the number of aliens that fit in a row
@@ -132,10 +144,16 @@ def change_fleet_direction(ai_settings, aliens):
     ai_settings.fleet_direction *= -1
     
 # We use this method on th aliens group, which automatically call each alien's update method
-def update_aliens(ai_settings, aliens):
+# Check for collistion between aliens and ship
+def update_aliens(ai_settings, ship, aliens):
     # Check if the fleet is at an edge and then update
     # the position of all aliens in the fleet
     check_fleet_edges(ai_settings, aliens)
     aliens.update()
+    
+    # Look for alien-ship collisions
+    # The method spritecollideany() takes two arguments: a sprite and a group.
+    if pygame.sprite.spritecollideany(ship, aliens):
+        print('Ship hit!!!')
     
     
