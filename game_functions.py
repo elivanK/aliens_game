@@ -1,4 +1,5 @@
 import sys
+from time import sleep 
 
 import pygame
 
@@ -145,7 +146,7 @@ def change_fleet_direction(ai_settings, aliens):
     
 # We use this method on th aliens group, which automatically call each alien's update method
 # Check for collistion between aliens and ship
-def update_aliens(ai_settings, ship, aliens):
+def update_aliens(ai_settings, stats, screen, ship, aliens, bullets):
     # Check if the fleet is at an edge and then update
     # the position of all aliens in the fleet
     check_fleet_edges(ai_settings, aliens)
@@ -154,6 +155,27 @@ def update_aliens(ai_settings, ship, aliens):
     # Look for alien-ship collisions
     # The method spritecollideany() takes two arguments: a sprite and a group.
     if pygame.sprite.spritecollideany(ship, aliens):
-        print('Ship hit!!!')
+        ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
+    
+def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
+    # Respnd to ship being hit by alien
+    # Reduce the number of ships left by 1
+    stats.ships_left -= 1  
+    
+    # Empty the list of aliens and bullets
+    aliens.empty()
+    bullets.empty()
+    
+    # Create a new fleet and center the ship
+    create_fleet(ai_settings, screen, ship, aliens)
+    ship.center_ship()
+    
+    # Pause
+    sleep(0.10)
+
+# Check if an alien reached the bottom of the screen    
+def check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets):
+    
+  
     
     
