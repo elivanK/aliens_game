@@ -34,7 +34,7 @@ def run_game():
     # Start the main loop for the game and call to update the ship, bullets and 
     # position of each alien
     while True:
-        gf.check_events(ai_settings, screen, ship, bullets)
+        gf.check_events(ai_settings, screen, stats, play_button, ship, aliens, bullets)
         # In order to identify the parts of the game that should always run
         # and the parts that should run only when the game is active 
         if stats.game_active:
