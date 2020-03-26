@@ -11,7 +11,7 @@ class Settings():
         # Ship settings
         # When ship moves, we adjust its position by 1.5 Pixels 
         self.ship_speed_factor = 1.5
-        # The number of ships the player starts with
+        # The number of ships the player starts
         self.ship_limit = 3
         
         # Bullet settings 

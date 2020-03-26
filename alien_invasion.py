@@ -31,11 +31,15 @@ def run_game():
     # position of each alien
     while True:
         gf.check_events(ai_settings, screen, ship, bullets)
-        ship.update()
-        gf.update_bullets(ai_settings, screen, ship, aliens, bullets) 
-        # The arguments will be used to track the  number of ships the player
-        # has left and to build a new fleet whne an alien hits the ship
-        gf.update_aliens(ai_settings, stats, screen, ship, aliens, bullets)       
+        # In order to identify the parts of the game that should always run
+        # and the parts that should run only when the game is active 
+        if stats.game_active:
+            ship.update()
+            gf.update_bullets(ai_settings, screen, ship, aliens, bullets) 
+            # The arguments will be used to track the  number of ships the player
+            # has left and to build a new fleet whne an alien hits the ship
+            gf.update_aliens(ai_settings, stats, screen, ship, aliens, bullets)  
+                 
         gf.update_screen(ai_settings, screen, ship, aliens, bullets)
         
 
