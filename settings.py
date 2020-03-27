@@ -29,23 +29,23 @@ class Settings():
         self.initialize_dynamic_settings()
         
         
-        def initialize_dynamic_settings(self):
-            # Initialize settings that change throughout the game
-            # When ship moves, we adjust its position by 1.5 Pixels 
-            self.ship_speed_factor = 1.5
-            # Bullet settings 
-            self.bullet_speed_factor = 3
-            # Alien settings
-            self.alien_speed_factor = 1
-            # fleet_direction of 1 represnets right and -1 left
-            self.fleet_direction = 1
+    def initialize_dynamic_settings(self):
+        # Initialize settings that change throughout the game
+        # When ship moves, we adjust its position by 1.5 Pixels 
+        self.ship_speed_factor = 1.5
+        # Bullet settings 
+        self.bullet_speed_factor = 3
+        # Alien settings
+        self.alien_speed_factor = 1
+        # fleet_direction of 1 represnets right and -1 left
+        self.fleet_direction = 1
         
-        # To increase the speeds of the ship, bullets, and aliens each time
-        # the player reaches a new level
-        def increase_speed(self):
-            self.ship_speed_factor *= self.speedup_scale
-            self.bullet_speed_factor *= self.speedup_scale
-            self.alien_speed_factor *= self.speedup_scale
+    # To increase the speeds of the ship, bullets, and aliens each time
+    # the player reaches a new level
+    def increase_speed(self):
+        self.ship_speed_factor *= self.speedup_scale
+        self.bullet_speed_factor *= self.speedup_scale
+        self.alien_speed_factor *= self.speedup_scale
         
         
         
