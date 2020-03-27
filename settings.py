@@ -40,6 +40,9 @@ class Settings():
         # fleet_direction of 1 represnets right and -1 left
         self.fleet_direction = 1
         
+        # Scoring
+        self.alien_points = 50
+        
     # To increase the speeds of the ship, bullets, and aliens each time
     # the player reaches a new level
     def increase_speed(self):
