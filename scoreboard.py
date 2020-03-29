@@ -19,6 +19,8 @@ class Scoreboard():
         self.prep_score()
         # Display high score
         self.prep_high_score()
+        # Display current level
+        self.prep_level()
         
     def prep_score(self):
         # Turn the score into a rendered image
@@ -38,6 +40,7 @@ class Scoreboard():
         # Draw score to the screen
         self.screen.blit(self.score_image, self.score_rect)  
         self.screen.blit(self.high_score_image, self.high_score_rect)
+        self.screen.blit(self.level_image, self.level_rect)
         
     # Display the high score seprately from the score
     def prep_high_score(self):
@@ -53,4 +56,16 @@ class Scoreboard():
         self.high_score_rect = self.high_score_image.get_rect()
         self.high_score_rect.centerx = self.screen_rect.centerx
         self.high_score_rect.top = self.score_rect.top  
+    
+    # This method creates an image from the value stored in stats.level    
+    def prep_level(self):
+        # Turn the level into a rendered image
+        self.level_image = self.font.render(str(self.stats.level), True, self.text_color, self.ai_settings.bg_color)
         
+        # Position the level below the score
+        self.level_rect = self.level_image.get_rect()
+        # Set the image's right attribute to match the score's right attribute
+        self.level_rect.right = self.score_rect.right
+        # Set the top attribute 10 pixels benath the bottom of the score 
+        # and leave space between the score and the level
+        self.level_rect.top = self.score_rect.bottom + 10
