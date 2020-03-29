@@ -113,7 +113,7 @@ def check_bullet_alien_collisions(ai_settings, screen, stats, sb, ship, aliens, 
     # When a bullet hits an alien, Pygame returns a collision dictionary
     # Check if dictionary exist, and if it does, the alien's value is added to the score 
     if collisions:
-        stats.score += ai_settings.alien_points
+        stats.score += ai_settings.alien_points * len(aliens)
         # Invoke prep_score() to create a new image for the updated score 
         sb.prep_score()
         

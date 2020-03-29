@@ -20,6 +20,10 @@ class Scoreboard():
         
     def prep_score(self):
         # Turn the score into a rendered image
+        # Round the score to the nearest 10 and store it in rounded_score
+        rounded_score = round(self.stats.score, -1)
+        # Convert a rounded number to a string with inserted commas
+        score_str = "{:,}".format(rounded_score)
         score_str = str(self.stats.score)
         self.score_image = self.font.render(score_str, True, self.text_color, self.ai_settings.bg_color)
         # Display the score at the top right of the screen
