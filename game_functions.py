@@ -116,6 +116,7 @@ def check_bullet_alien_collisions(ai_settings, screen, stats, sb, ship, aliens, 
         stats.score += ai_settings.alien_points * len(aliens)
         # Invoke prep_score() to create a new image for the updated score 
         sb.prep_score()
+        check_high_score(stats, sb)
         
     # Check if the group aliens is empty
     if len(aliens) == 0:
@@ -229,6 +230,11 @@ def check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets):
             ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
             break
     
-  
+# Check for high scores
+def check_high_score(stats, sb):
+    # Check to see if there's a new high score
+    if stats.score > stats.high_score:
+        stats.high_score = stats.score
+        sb.prep_high_score()  
     
     
