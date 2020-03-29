@@ -1,4 +1,7 @@
 import pygame.font
+from pygame.sprite import Group
+
+from ship import Ship
 
 class Scoreboard():
     # A class to report scoring information
@@ -21,6 +24,7 @@ class Scoreboard():
         self.prep_high_score()
         # Display current level
         self.prep_level()
+        self.prep_ships()
         
     def prep_score(self):
         # Turn the score into a rendered image
@@ -41,6 +45,8 @@ class Scoreboard():
         self.screen.blit(self.score_image, self.score_rect)  
         self.screen.blit(self.high_score_image, self.high_score_rect)
         self.screen.blit(self.level_image, self.level_rect)
+        # Draw ships
+        self.ships.draw(self.screen)
         
     # Display the high score seprately from the score
     def prep_high_score(self):
@@ -69,3 +75,16 @@ class Scoreboard():
         # Set the top attribute 10 pixels benath the bottom of the score 
         # and leave space between the score and the level
         self.level_rect.top = self.score_rect.bottom + 10
+    
+    # Create an empty grup    
+    def prep_ships(self):
+        # Show how many ships are left
+        # self.ships to hold the ship instances 
+        self.ships = Group()
+        
+        # To fill this group, a loop runs once for every ship the player has left
+        for ship_number in range(self.stats.ships_left):
+            ship = Ship(self.ai_settings, self.screen)
+            ship.rect.x = 10 + ship_number * ship.rect.width
+            ship.rect.y = 10
+            self.ships.add(ship)

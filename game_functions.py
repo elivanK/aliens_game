@@ -6,6 +6,11 @@ import pygame
 from bullet import Bullet
 from alien import Alien 
 
+# Add sound to the game 
+pygame.mixer.init()
+shootSound = pygame.mixer.Sound("sound/shoot.wav")
+invadorKilled = pygame.mixer.Sound("sound/invaderkilled.wav")
+
 def check_keydown_events(event, ai_settings, screen, ship, bullets):
     # Respond to keypresses
     if event.key == pygame.K_RIGHT:
@@ -26,6 +31,7 @@ def fire_bullet(ai_settings, screen, ship, bullets):
     if len(bullets) < ai_settings.bullets_allowed:
         new_bullet = Bullet(ai_settings, screen, ship)
         bullets.add(new_bullet)
+        shootSound.play()
         
 
 def check_keyup_events(event, ship):
@@ -66,6 +72,7 @@ def check_play_button(ai_settings, screen, stats, sb, play_button, ship, aliens,
         sb.prep_score()
         sb.prep_high_score()
         sb.prep_level
+        sb.prep_ships()
         
         # Empty the list of aliens and bullets
         aliens.empty()
@@ -122,6 +129,7 @@ def check_bullet_alien_collisions(ai_settings, screen, stats, sb, ship, aliens, 
         # Invoke prep_score() to create a new image for the updated score 
         sb.prep_score()
         check_high_score(stats, sb)
+        invadorKilled.play()
         
     # Check if the group aliens is empty
     if len(aliens) == 0:
@@ -198,7 +206,7 @@ def change_fleet_direction(ai_settings, aliens):
     
 # We use this method on th aliens group, which automatically call each alien's update method
 # Check for collistion between aliens and ship
-def update_aliens(ai_settings, stats, screen, ship, aliens, bullets):
+def update_aliens(ai_settings, screen, stats, sb, ship, aliens, bullets):
     # Check if the fleet is at an edge and then update
     # the position of all aliens in the fleet
     check_fleet_edges(ai_settings, aliens)
@@ -207,17 +215,21 @@ def update_aliens(ai_settings, stats, screen, ship, aliens, bullets):
     # Look for alien-ship collisions
     # The method spritecollideany() takes two arguments: a sprite and a group.
     if pygame.sprite.spritecollideany(ship, aliens):
-        ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
+        ship_hit(ai_settings, screen, stats, sb, ship, aliens, bullets)
         
     # Look for aliens hitting the bottom of the screen
-    check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets)
+    check_aliens_bottom(ai_settings, screen, stats, sb, ship, aliens, bullets)
     
-def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
+def ship_hit(ai_settings, screen, stats, sb, ship, aliens, bullets):
     # Respnd to ship being hit by alien
     # Reduce the number of ships left by 1
     # If player used all his ships, end the game
     if stats.ships_left > 0:
-        stats.ships_left -= 1     
+        stats.ships_left -= 1  
+        
+        # Update scoreboard
+        sb.prep_ships()
+           
         # Empty the list of aliens and bullets
         aliens.empty()
         bullets.empty()    
@@ -233,12 +245,12 @@ def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
         pygame.mouse.set_visible(True)
 
 # Check if an alien reached the bottom of the screen    
-def check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets):
+def check_aliens_bottom(ai_settings, screen, stats, sb, ship, aliens, bullets):
     screen_rect = screen.get_rect()
     for alien in aliens.sprites():
         if alien.rect.bottom >= screen_rect.bottom:
             # Treat this the same as if the ship got hit
-            ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
+            ship_hit(ai_settings, screen, stats, sb, ship, aliens, bullets)
             break
     
 # Check for high scores
